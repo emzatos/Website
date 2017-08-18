@@ -1,1 +1,1 @@
-# MandelJS
+# Personal Website
