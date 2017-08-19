@@ -153,12 +153,12 @@ element.onkeypress = function(e) {
       	if(Typer.path == "")
       		Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt"]));
 
-      	if(Typer.path == "/Projects")
+      	else if(Typer.path == "/Projects")
       		Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
       							"other_projects.txt"]));
 
       	else{
-      		Typer.write(make_header());
+      		Typer.write(builder([]));
       	}
 
 
@@ -167,14 +167,17 @@ element.onkeypress = function(e) {
       else if(command == "cd") {
       	if(args == "..") {
       		if(Typer.path == ""){
-      			Typer.write(make_header());
+      			Typer.write(builder([]));
       			
 
       		}
       		else {
       			Typer.path = Typer.path.substring(0,Typer.path.lastIndexOf("/"));
-      			Typer.write(make_header());
+      			Typer.write(builder([]));
       		}
+      	}
+      	else if(args == ".") {
+      		Typer.write(builder([]));
       	}
       	else if(Typer.path == "") {
       		let subdirs = ["/Projects", "/Experience", "/Skills", "/Extracurricular"];
@@ -188,8 +191,12 @@ element.onkeypress = function(e) {
       		if(!found){
       			Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
       		} else {
-      			Typer.write(make_header());
+      			Typer.write(builder([]));
       		}
+      	}else {
+
+      		  Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+
       	}
       }
 
