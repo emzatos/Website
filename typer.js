@@ -25,30 +25,6 @@ var Typer={
 		return false;
 	},
 
-	makeAccess:function(){//create Access Granted popUp      FIXME: popup is on top of the page and doesn't show is the page is scrolled
-		Typer.hidepop(); // hide all popups
-		Typer.accessCount=0; //reset count
-		var ddiv=$("<div id='gran'>").html(""); // create new blank div and id "gran"
-		ddiv.addClass("accessGranted"); // add class to the div
-		ddiv.html("<h1>ACCESS GRANTED</h1>"); // set content of div
-		$(document.body).prepend(ddiv); // prepend div to body
-		return false;
-	},
-	makeDenied:function(){//create Access Denied popUp      FIXME: popup is on top of the page and doesn't show is the page is scrolled
-		Typer.hidepop(); // hide all popups
-		Typer.deniedCount=0; //reset count
-		var ddiv=$("<div id='deni'>").html(""); // create new blank div and id "deni"
-		ddiv.addClass("accessDenied");// add class to the div
-		ddiv.html("<h1>ACCESS DENIED</h1>");// set content of div
-		$(document.body).prepend(ddiv);// prepend div to body
-		return false;
-	},
-
-	hidepop:function(){// remove all existing popups
-		$("#deni").remove();
-		$("#gran").remove();
-	},
-
 	addText:function(key){//Main function to add the code
 
 		if(key.keyCode==18){// key 18 = alt key
@@ -147,75 +123,84 @@ element.classList.add('text');
 
 element.onkeypress = function(e) {
 	if (!e) e = window.event;
-    var keyCode = e.keyCode || e.which;
-    if (keyCode == '13'){
-    	let command = e.target.value.split(" ")[0];
-    	let args = e.target.value.split(" ")[1];
+	var keyCode = e.keyCode || e.which;
+	if (keyCode == '13'){
+		let command = e.target.value.split(" ")[0];
+		let args = e.target.value.split(" ")[1];
 
-      if(command == "ls"){
-      	if(Typer.path == "")
-      		Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt"]));
+		if(e.target.value.length == 0)
+			Typer.write(builder([]));
+		else if(command == "ls"){
+			if(Typer.path == "")
+				Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt"]));
 
-      	else if(Typer.path == "/Projects")
-      		Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
-      							"other_projects.txt"]));
+			else if(Typer.path == "/Projects")
+				Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
+					"other_projects.txt"]));
 
-      	else{
-      		Typer.write(builder([]));
-      	}
+			else if(Typer.path == "/Extracurricular")
+				Typer.write(builder(["hum.txt", "kvrx.txt"]));
 
-
-      }
-
-      else if(command == "cd") {
-      	if(args == "..") {
-      		if(Typer.path == ""){
-      			Typer.write(builder([]));
-      			
-
-      		}
-      		else {
-      			Typer.path = Typer.path.substring(0,Typer.path.lastIndexOf("/"));
-      			Typer.write(builder([]));
-      		}
-      	}
-      	else if(args == ".") {
-      		Typer.write(builder([]));
-      	}
-      	else if(Typer.path == "") {
-      		let subdirs = ["/Projects", "/Experience", "/Skills", "/Extracurricular"];
-      		let found = false;
-      		for(let a of subdirs){
-      			if(("/" + args) == a){
-      				found = true;
-      				Typer.path+=a;
-      			}
-      		}
-      		if(!found){
-      			Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
-      		} else {
-      			Typer.write(builder([]));
-      		}
-      	}else {
-
-      		  Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
-
-      	}
-      }
-
-      else if(command == "clear") {
-      	document.getElementById("console").innerHTML = make_header();
-      } 
-
-      else {
-      	Typer.write("<br>-bosch: " + command + ": command not found</br>" + make_header());
-      }
+			else{
+				Typer.write(builder([]));
+			}
 
 
-      e.target.disabled = true;
-      add();
+		}
 
-    }
+		else if(command == "cd") {
+			if(args == "..") {
+				if(Typer.path == ""){
+					Typer.write(builder([]));
+
+
+				}
+				else {
+					Typer.path = Typer.path.substring(0,Typer.path.lastIndexOf("/"));
+					Typer.write(builder([]));
+				}
+			}
+			else if(args == ".") {
+				Typer.write(builder([]));
+			}
+			else if(Typer.path == "") {
+				let subdirs = ["/Projects", "/Experience", "/Skills", "/Extracurricular"];
+				let found = false;
+				for(let a of subdirs){
+					if(("/" + args) == a){
+						found = true;
+						Typer.path+=a;
+					}
+				}
+				if(!found){
+					Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+				} else {
+					Typer.write(builder([]));
+				}
+			}else {
+
+				Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+
+			}
+		}
+
+		else if(command == "clear") {
+			document.getElementById("console").innerHTML = make_header();
+		} 
+
+		else if(command == "cat") {
+			Typer.write(builder([]));
+		}
+
+		else {
+			Typer.write("<br>-bosch: " + command + ": command not found</br>" + make_header());
+		}
+
+
+		e.target.disabled = true;
+		add();
+
+	}
 }
 
 
@@ -240,6 +225,10 @@ function make_header() {
 function builder(names) {
 	var result = "<br>";
 	var tab = " &emsp; ";
+
+	if(names.length == 0){
+		return "<br>" + make_header();
+	}
 
 	for(let str of names) {
 
