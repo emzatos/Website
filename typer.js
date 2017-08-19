@@ -5,6 +5,7 @@ var Typer={
 	index:0, // current cursor position
 	speed:2, // speed of the Typer
 	file:"", //file, must be setted
+	path:"",
 	accessCount:0, //times alt is pressed for Access Granted
 	deniedCount:0, //times caps is pressed for Access Denied
 	init: function(){// inizialize Hacker Typer
@@ -145,13 +146,23 @@ element.onkeypress = function(e) {
 	if (!e) e = window.event;
     var keyCode = e.keyCode || e.which;
     if (keyCode == '13'){
-      if(e.target.value == "ls"){
-      	alert("under construction");
-      } else {
-      	e.target.disabled = true;
-      	Typer.write("<br>-bosch: " + e.target.value + ": command not found</br>" + Typer.header);
-      	add();
+    	let command = e.target.value.split(" ")[0];
+
+      if(command == "ls"){
+      	Typer.write(builder(["Projects/", "Memes/", "ofuk.png", "memes.txt"]));
+      } 
+
+      else if(command == "clear") {
+      	document.getElementById("console").innerHTML = Typer.header + Typer.path;
+      } 
+
+      else {
+      	Typer.write("<br>-bosch: " + command + ": command not found</br>" + Typer.header + Typer.path);
       }
+
+      e.target.disabled = true;
+      add();
+
     }
 }
 
@@ -164,6 +175,27 @@ var foo = document.getElementById("console");
 foo.appendChild(element);
 element.focus();
 
+}
+
+function color_repo(str) {
+	return "<span id=\"d\">" + str + "</span>/";
+}
+
+function builder(names) {
+	var result = "<br>";
+	var tab = " &emsp; ";
+	for(let str of names) {
+		if(str.endsWith("/")){
+			result+=color_repo(str.substring(0,str.length-1));
+			result+=tab;
+		}else {
+			result+=str;
+			result+=tab;
+		}
+	}
+	result+="</br>" + Typer.header + Typer.path;
+
+	return result;
 }
 
 
