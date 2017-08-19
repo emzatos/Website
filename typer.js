@@ -1,11 +1,11 @@
 var Typer={
 	text: null,
 	accessCountimer:null,
-	header:"<span id=\"a\">emzatos@utaustin</span>:<span id=\"b\">~</span><span id=\"c\">$</span>",
 	index:0, // current cursor position
 	speed:2, // speed of the Typer
 	file:"", //file, must be setted
 	path:"",
+	header:"<span id=\"a\">emzatos@utaustin</span>:<span id=\"b\">~</span><span id=\"c\">$</span>",
 	accessCount:0, //times alt is pressed for Access Granted
 	deniedCount:0, //times caps is pressed for Access Denied
 	init: function(){// inizialize Hacker Typer
@@ -149,15 +149,18 @@ element.onkeypress = function(e) {
     	let command = e.target.value.split(" ")[0];
 
       if(command == "ls"){
-      	Typer.write(builder(["Projects/", "Memes/", "ofuk.png", "memes.txt"]));
-      } 
+      	if(Typer.path == "")
+      		Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt"]));
+
+
+      }
 
       else if(command == "clear") {
-      	document.getElementById("console").innerHTML = Typer.header + Typer.path;
+      	document.getElementById("console").innerHTML = make_header();
       } 
 
       else {
-      	Typer.write("<br>-bosch: " + command + ": command not found</br>" + Typer.header + Typer.path);
+      	Typer.write("<br>-bosch: " + command + ": command not found</br>" + make_header());
       }
 
       e.target.disabled = true;
@@ -178,7 +181,11 @@ element.focus();
 }
 
 function color_repo(str) {
-	return "<span id=\"d\">" + str + "</span>/";
+	return "<span id=\"repo\">" + str + "</span>/";
+}
+
+function make_header() {
+	return Typer.header.replace("~", "~"+Typer.path);
 }
 
 function builder(names) {
@@ -193,7 +200,7 @@ function builder(names) {
 			result+=tab;
 		}
 	}
-	result+="</br>" + Typer.header + Typer.path;
+	result+="</br>" + make_header();
 
 	return result;
 }
