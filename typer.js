@@ -147,12 +147,46 @@ element.onkeypress = function(e) {
     var keyCode = e.keyCode || e.which;
     if (keyCode == '13'){
     	let command = e.target.value.split(" ")[0];
+    	let args = e.target.value.split(" ")[1];
 
       if(command == "ls"){
       	if(Typer.path == "")
       		Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt"]));
 
+      	if(Typer.path == "/Projects")
+      		Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
+      							"other_projects.txt"]))
 
+
+      }
+
+      else if(command == "cd") {
+      	if(args == "..") {
+      		if(Typer.path == ""){
+      			Typer.write(make_header());
+      			
+
+      		}
+      		else {
+      			Typer.path = Typer.path.substring(0,Typer.path.lastIndexOf("/"));
+      			Typer.write(make_header());
+      		}
+      	}
+      	else if(Typer.path == "") {
+      		let subdirs = ["/Projects", "/Experience", "/Skills", "/Extracurricular"];
+      		let found = false;
+      		for(let a of subdirs){
+      			if(("/" + args) == a){
+      				found = true;
+      				Typer.path+=a;
+      			}
+      		}
+      		if(!found){
+      			Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+      		} else {
+      			Typer.write(make_header());
+      		}
+      	}
       }
 
       else if(command == "clear") {
@@ -162,6 +196,7 @@ element.onkeypress = function(e) {
       else {
       	Typer.write("<br>-bosch: " + command + ": command not found</br>" + make_header());
       }
+
 
       e.target.disabled = true;
       add();
@@ -191,7 +226,12 @@ function make_header() {
 function builder(names) {
 	var result = "<br>";
 	var tab = " &emsp; ";
+	var count = 0;
 	for(let str of names) {
+		if(count == 5){
+			result+="</br><br>";
+			count=0;
+		}
 		if(str.endsWith("/")){
 			result+=color_repo(str.substring(0,str.length-1));
 			result+=tab;
@@ -199,6 +239,8 @@ function builder(names) {
 			result+=str;
 			result+=tab;
 		}
+
+		++count;
 	}
 	result+="</br>" + make_header();
 
