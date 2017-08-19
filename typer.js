@@ -116,6 +116,9 @@ Typer.init();
 
 var timer = setInterval("t();", 30);
 function t() {
+	window.onkeypress = function(e){
+		Typer.speed = 1000;
+	}
 	Typer.addText({"keyCode": 123748});
 	if (Typer.index > Typer.text.length) {
 		clearInterval(timer);

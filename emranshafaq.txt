@@ -1,7 +1,7 @@
 <span id="a">emzatos@utaustin</span>:<span id="b">~</span><span id="c">$</span> cat emranshafaq.txt<br/><br/>
 Hi, I'm Emran Shafaq.<!— laglaglaglaglaglaglaglaglaglaglaglag --><p>I am currently a student at the University of Texas at Austin studying computer science and mathematics.</p><!-- qowifjqwoeijfoqweijfqweoifjqweofijqweoqwoijefoqwijefoijfqiwoefjj -->
 <p>My current interests include abstract algebra, artificial intelligence, and formal methods.</p><!-- owlsqweoifjqwoefijqwoeifjqwoefijwef -->
-If you would like to get in touch with me, <!-- slightdelayhere-->feel free to send me an email.<!-- longlongcomment --> My email address is: <a href="mailto:emran.shafaq@gmail.com">emran.shafaq@gmail.com</a> and my Github is: <a href="http://github.com/emzatos">emzatos</a>.
-<p>If you would like to see my artistic side, feel free to check out my <a href="http://www.flickr.com/eshafaq">Flickr</a>.</p>
-<!-- qowifjqwoeijfoqweijfqweoifjqweofijqweoqwoijefoqwijefoijfqiwoefjj --><p>My latest project is a Mandelbrot set viewer written in JS, which can be viewed <a href="http://www.cs.utexas.edu/~eshafaq/mandel.html">here</a>. </p><!-- owlsqweoifjqwoefijqwoeifjqwoefijwef -->
-<!-- qowifjqwoeijfoqweijfqweoifjqweofijqweoqwoijefoqwijefoijfqiwoefjj --><p>My resume can be found <a href="http://cs.utexas.edu/~eshafaq/Resume-electronic.pdf">here</a>.</p><!-- owlsqweoifjqwoefijqwoeifjqwoefijwef -->
+If you would like to get in touch with me, <!-- slightdelayhere-->feel free to send me an email.<!-- longlongcomment --> My email address is: <a href="mailto:emran.shafaq@gmail.com" target="_blank">emran.shafaq@gmail.com</a> and my Github is: <a href="http://github.com/emzatos" target="_blank">emzatos</a>.
+<p>If you would like to see my artistic side, feel free to check out my <a href="http://www.flickr.com/eshafaq" target="_blank">Flickr</a>.</p>
+<!-- qowifjqwoeijfoqweijfqweoifjqweofijqweoqwoijefoqwijefoijfqiwoefjj --><p>My latest project is a Mandelbrot set viewer written in JS, which can be viewed <a href="http://www.cs.utexas.edu/~eshafaq/mandel.html" target="_blank">here</a>. </p><!-- owlsqweoifjqwoefijqwoeifjqwoefijwef -->
+<!-- qowifjqwoeijfoqweijfqweoifjqweofijqweoqwoijefoqwijefoijfqiwoefjj --><p>My resume can be found <a href="http://cs.utexas.edu/~eshafaq/Resume-electronic.pdf" target="_blank">here</a>.</p><!-- owlsqweoifjqwoefijqwoeifjqwoefijwef -->
