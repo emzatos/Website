@@ -120,7 +120,6 @@ element.setAttribute("style", "width:400px");
 element.classList.add('text');
 
 
-
 element.onkeypress = function(e) {
 	if (!e) e = window.event;
 	var keyCode = e.keyCode || e.which;
@@ -132,7 +131,7 @@ element.onkeypress = function(e) {
 			Typer.write(builder([]));
 		else if(command == "ls"){
 			if(Typer.path == "")
-				Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt"]));
+				Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt", "contact.txt"]));
 
 			else if(Typer.path == "/Projects")
 				Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
@@ -167,7 +166,7 @@ element.onkeypress = function(e) {
 				let subdirs = ["/Projects", "/Experience", "/Skills", "/Extracurricular"];
 				let found = false;
 				for(let a of subdirs){
-					if(("/" + args) == a){
+					if(("/" + args) == a || "/"+args.substring(0,args.length-1) == a && args.endsWith("/")){
 						found = true;
 						Typer.path+=a;
 					}
@@ -186,10 +185,60 @@ element.onkeypress = function(e) {
 
 		else if(command == "clear") {
 			document.getElementById("console").innerHTML = make_header();
-		} 
+		}
+
+		else if(command == "help") {
+			Typer.write("<br>cat [filename] - display contents of file<br>cd [directory_name] - change directory<br>clear - reset console<br>ls - list directory contents<br>" + make_header());
+		}
 
 		else if(command == "cat") {
-			Typer.write(builder([]));
+			if(args == "meme" || args == "memes") {
+				var meme = document.createElement("img");
+				meme.setAttribute("src", "https://media.giphy.com/media/Hcw7rjsIsHcmk/giphy.gif");
+				meme.style.width = 400;
+				meme.style.height = 400;
+				document.getElementById("console").appendChild(meme);
+				Typer.write(builder([]));
+			}
+
+			else if(Typer.path == "/Extracurricular"){
+				if(args == "hum.txt") {
+					Typer.write("<br><span id=\"hum\">Hum A Cappella </span>is a collegiate South Asian fusion a cappella group. <p> Essentially, we take popular American songs and mash them up with popular Indian songs. We travel nationally to attend various competitions and events. </p> <p>I joined the team in the Fall of 2016 as a bass singer. The group has offered me a great way to express myself artistically while having a blast.</p> <p>I encourage you to visit the team's website: -link here eventually- </p>" + make_header());
+				} else if(args == "kvrx.txt") {
+					Typer.write("");
+				} else {
+					Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+				}
+			} 
+
+			else if(Typer.path == "") {
+				if(args == "education.txt") {
+
+					Typer.write("<br>Under construction.<br>" + make_header());
+
+
+				} else if(args == "emranshafaq.txt"){
+					Typer.write("<br>Hi, I\'m Emran Shafaq.<p>I am currently a student at the University of Texas at Austin studying computer science and mathematics.<\/p><p>My current interests include abstract algebra, artificial intelligence, and formal methods.<\/p>\r\nIf you would like to get in touch with me, feel free to send me an email. My email address is: <a href=\"mailto:emran.shafaq@gmail.com\" target=\"_blank\">emran.shafaq@gmail.com<\/a> and my Github is: <a href=\"http:\/\/github.com\/emzatos\" target=\"_blank\">emzatos<\/a>.\r\n<p>If you would like to see my artistic side, feel free to check out my <a href=\"http:\/\/www.flickr.com\/eshafaq\" target=\"_blank\">Flickr<\/a>.<\/p><p>My latest project is a Mandelbrot set viewer written in JS, which can be viewed <a href=\"http:\/\/www.cs.utexas.edu\/~eshafaq\/mandel.html\" target=\"_blank\">here<\/a>. <\/p><p>My resume can be found <a href=\"http:\/\/cs.utexas.edu\/~eshafaq\/Resume-electronic.pdf\" target=\"_blank\">here<\/a>.<\/p>" + make_header());
+				}
+
+				else if(args == "contact.txt") {
+					Typer.write("<br>Mailing Address: 1023 W. 24th St., Austin, TX 78705 Apt. 906\
+								<br>Phone Number: 817-734-8659\
+								<br>Email: emran.shafaq@gmail.com\
+								<br>Github ID: emzatos\
+								<br>" + make_header());
+				}
+
+				else {
+					Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+				}
+
+			}
+
+
+			else {
+				Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+			}
 		}
 
 		else {
@@ -200,7 +249,7 @@ element.onkeypress = function(e) {
 		e.target.disabled = true;
 		add();
 
-	}
+	}  
 }
 
 
@@ -221,6 +270,8 @@ function color_repo(str) {
 function make_header() {
 	return Typer.header.replace("~", "~"+Typer.path);
 }
+
+
 
 function builder(names) {
 	var result = "<br>";
@@ -246,6 +297,5 @@ function builder(names) {
 
 	return result;
 }
-
 
 

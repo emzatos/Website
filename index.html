@@ -23,13 +23,27 @@ THE SOFTWARE.
 <html> 
 <head> 
 	<title>Emran Shafaq</title> 
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
+	<script src="//cdnjs.cloudflare.com/ajax/libs/tabcomplete/1.3.1/tabcomplete.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head> 
 <body> 
+	<script>
+		$(function() {
+
+			$("#input").tabcomplete([
+				"jQuery",
+				"jQueryPlugin",
+				"jQueryCom",
+				"jQueryScriptNet",
+				]);
+
+		});
+	</script>
 	<script type="text/javascript" src="typer.js"> </script> 
-<div id="console"></div> 
-<script type="text/javascript" src="console.js">
-</script>
+	<div id="console"></div> 
+	<script type="text/javascript" src="console.js">
+	<img src="https://media.giphy.com/media/Hcw7rjsIsHcmk/giphy.gif" width="308" height="233">
+	</script>
 </body> 
 </html> 

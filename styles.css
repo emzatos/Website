@@ -24,9 +24,22 @@ a {
 	color: #ff0096;
 }
 
+#hum {
+	color: #E3710D
+}
+
 #repo {
 	color: #E2C0FF;
 }
+
+#kvrx {
+	color: #E7EE23;
+}
+
+#instruct {
+	color: red;
+}
+
 
 .text {
 	background: black;
