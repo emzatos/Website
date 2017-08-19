@@ -137,7 +137,7 @@ element.setAttribute("type", "text");
 element.setAttribute("value", "");
 element.setAttribute("name", "Test Name");
 element.setAttribute("spellcheck", "false");
-element.setAttribute("style", "width:500px");
+element.setAttribute("style", "width:400px");
 element.classList.add('text');
 
 
@@ -155,7 +155,11 @@ element.onkeypress = function(e) {
 
       	if(Typer.path == "/Projects")
       		Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
-      							"other_projects.txt"]))
+      							"other_projects.txt"]));
+
+      	else{
+      		Typer.write(make_header());
+      	}
 
 
       }
@@ -226,12 +230,9 @@ function make_header() {
 function builder(names) {
 	var result = "<br>";
 	var tab = " &emsp; ";
-	var count = 0;
+
 	for(let str of names) {
-		// if(count == 5){
-		// 	result+="</br><br>";
-		// 	count=0;
-		// }
+
 		if(str.endsWith("/")){
 			result+=color_repo(str.substring(0,str.length-1));
 			result+=tab;
@@ -240,7 +241,7 @@ function builder(names) {
 			result+=tab;
 		}
 
-		//++count;
+
 	}
 	result+="</br>" + make_header();
 
