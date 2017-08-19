@@ -228,10 +228,10 @@ function builder(names) {
 	var tab = " &emsp; ";
 	var count = 0;
 	for(let str of names) {
-		if(count == 5){
-			result+="</br><br>";
-			count=0;
-		}
+		// if(count == 5){
+		// 	result+="</br><br>";
+		// 	count=0;
+		// }
 		if(str.endsWith("/")){
 			result+=color_repo(str.substring(0,str.length-1));
 			result+=tab;
@@ -240,7 +240,7 @@ function builder(names) {
 			result+=tab;
 		}
 
-		++count;
+		//++count;
 	}
 	result+="</br>" + make_header();
 
