@@ -120,10 +120,23 @@ element.setAttribute("style", "width:400px");
 element.classList.add('text');
 
 
+element.onkeydown = function(e) {
+	if(e.keyCode == 9){
+		e.preventDefault();
+		if(Typer.path == "") {
+			e.target.value = auto_complete(e.target.value, ["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt", "contact.txt"]);
+		} else if(Typer.path == "/Projects") {
+			e.target.value = auto_complete(e.target.value, ["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt","other_projects.txt"]);
+		} else if(Typer.path == "/Extracurricular") {
+			e.target.value = auto_complete(e.target.value, ["hum.txt", "kvrx.txt"]);
+		}
+	}
+}
+
 element.onkeypress = function(e) {
 	if (!e) e = window.event;
 	var keyCode = e.keyCode || e.which;
-	if (keyCode == '13'){
+	if (keyCode == 13){
 		let command = e.target.value.split(" ")[0];
 		let args = e.target.value.split(" ")[1];
 
@@ -188,7 +201,7 @@ element.onkeypress = function(e) {
 		}
 
 		else if(command == "help") {
-			Typer.write("<br>cat [filename] - display contents of file<br>cd [directory_name] - change directory<br>clear - reset console<br>ls - list directory contents<br>" + make_header());
+			Typer.write("<br>cat [filename] - display contents of file<br>cd [directory_name] - change directory<br>clear - reset console<br>echo [arg] - prints text to console<br>ls - list directory contents<br>" + make_header());
 		}
 
 		else if(command == "cat") {
@@ -214,7 +227,7 @@ element.onkeypress = function(e) {
 			else if(Typer.path == "") {
 				if(args == "education.txt") {
 
-					Typer.write("<br>Under construction.<br>" + make_header());
+					Typer.write("<br>I am a junior at the University of Texas at Austin, studying computer science and pure mathematics. <br>I've always had a passion for mathematics, but it wasn't until my junior year of high school where I discovered my love for computer science. It sort of consolidated my understanding of math into a physical device.<br>This coming semester, I am planning on taking courses in abstract algebra, complex analysis, and algorithms, as well as an undergraduate research course. <br>" + make_header());
 
 
 				} else if(args == "emranshafaq.txt"){
@@ -223,10 +236,10 @@ element.onkeypress = function(e) {
 
 				else if(args == "contact.txt") {
 					Typer.write("<br>Mailing Address: 1023 W. 24th St., Austin, TX 78705 Apt. 906\
-								<br>Phone Number: 817-734-8659\
-								<br>Email: emran.shafaq@gmail.com\
-								<br>Github ID: emzatos\
-								<br>" + make_header());
+						<br>Phone Number: 817-734-8659\
+						<br>Email: emran.shafaq@gmail.com\
+						<br>Github ID: emzatos\
+						<br>" + make_header());
 				}
 
 				else {
@@ -241,6 +254,10 @@ element.onkeypress = function(e) {
 			}
 		}
 
+		else if(command == "echo") {
+			Typer.write("<br>" + (args == undefined ? "" : args) + "<br>" + make_header());
+		}
+
 		else {
 			Typer.write("<br>-bosch: " + command + ": command not found</br>" + make_header());
 		}
@@ -249,7 +266,8 @@ element.onkeypress = function(e) {
 		e.target.disabled = true;
 		add();
 
-	}  
+	}
+
 }
 
 
@@ -296,6 +314,29 @@ function builder(names) {
 	result+="</br>" + make_header();
 
 	return result;
+}
+
+function auto_complete(value, args) {
+	let command = "";
+	let current = "";
+
+	if(value.indexOf(" ") != -1){
+		command = value.split(" ")[0]
+		current = value.split(" ")[1]
+	} else {
+		current = value;
+	}
+
+	let options = args;
+	let result = "";
+	for(let a of options) {
+		if(a.substring(0,current.length) == current){
+			current = a;
+		}
+	}
+
+
+	return command == "" ? current : command + " " + current;
 }
 
 
