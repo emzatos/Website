@@ -153,6 +153,12 @@ element.onkeypress = function(e) {
 			else if(Typer.path == "/Extracurricular")
 				Typer.write(builder(["hum.txt", "kvrx.txt"]));
 
+			else if(Typer.path == "/Experience")
+				Typer.write(builder(["ccs_ices.txt", "breker_systems.txt"]));
+
+			else if(Typer.path == "/Skills")
+				Typer.write(builder(["languages.txt", "frameworks.txt"]));
+
 			else{
 				Typer.write(builder([]));
 			}
