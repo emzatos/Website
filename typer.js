@@ -142,121 +142,25 @@ element.onkeypress = function(e) {
 
 		if(e.target.value.length == 0)
 			Typer.write(builder([]));
+
 		else if(command == "ls"){
-			if(Typer.path == "")
-				Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt", "contact.txt"]));
-
-			else if(Typer.path == "/Projects")
-				Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
-					"other_projects.txt"]));
-
-			else if(Typer.path == "/Extracurricular")
-				Typer.write(builder(["hum.txt", "kvrx.txt"]));
-
-			else if(Typer.path == "/Experience")
-				Typer.write(builder(["ccs_ices.txt", "breker_systems.txt", "research.txt"]));
-
-			else if(Typer.path == "/Skills")
-				Typer.write(builder(["languages.txt", "frameworks.txt"]));
-
-			else{
-				Typer.write(builder([]));
-			}
-
-
+			ls();
 		}
 
 		else if(command == "cd") {
-			if(args == "..") {
-				if(Typer.path == ""){
-					Typer.write(builder([]));
-
-
-				}
-				else {
-					Typer.path = Typer.path.substring(0,Typer.path.lastIndexOf("/"));
-					Typer.write(builder([]));
-				}
-			}
-			else if(args == ".") {
-				Typer.write(builder([]));
-			}
-			else if(Typer.path == "") {
-				let subdirs = ["/Projects", "/Experience", "/Skills", "/Extracurricular"];
-				let found = false;
-				for(let a of subdirs){
-					if(("/" + args) == a || "/"+args.substring(0,args.length-1) == a && args.endsWith("/")){
-						found = true;
-						Typer.path+=a;
-					}
-				}
-				if(!found){
-					Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
-				} else {
-					Typer.write(builder([]));
-				}
-			}else {
-
-				Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
-
-			}
+			cd(args);
 		}
 
 		else if(command == "clear") {
-			document.getElementById("console").innerHTML = make_header();
+			clear();
 		}
 
 		else if(command == "help") {
-			Typer.write("<br>cat [filename] - display contents of file<br>cd [directory_name] - change directory<br>clear - reset console<br>echo [arg] - prints text to console<br>ls - list directory contents<br>" + make_header());
+			help();
 		}
 
 		else if(command == "cat") {
-			if(args == "meme" || args == "memes") {
-				var meme = document.createElement("img");
-				meme.setAttribute("src", "https://media.giphy.com/media/Hcw7rjsIsHcmk/giphy.gif");
-				meme.style.width = 400;
-				meme.style.height = 400;
-				document.getElementById("console").appendChild(meme);
-				Typer.write(builder([]));
-			}
-
-			else if(Typer.path == "/Extracurricular"){
-				if(args == "hum.txt") {
-					Typer.write("<br><span id=\"hum\">Hum A Cappella </span>is a collegiate South Asian fusion a cappella group. <p> Essentially, we take popular American songs and mash them up with popular Indian songs. We travel nationally to attend various competitions and events. </p> <p>I joined the team in the Fall of 2016 as a bass singer. The group has offered me a great way to express myself artistically while having a blast.</p> <p>I encourage you to visit the team's website: -link here eventually- </p>" + make_header());
-				} else if(args == "kvrx.txt") {
-					Typer.write("");
-				} else {
-					Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
-				}
-			} 
-
-			else if(Typer.path == "") {
-				if(args == "education.txt") {
-
-					Typer.write("<br>I am a junior at the University of Texas at Austin, studying computer science and pure mathematics. <br>I've always had a passion for mathematics, but it wasn't until my junior year of high school where I discovered my love for computer science. It sort of consolidated my understanding of math into a physical device.<br>This coming semester, I am planning on taking courses in abstract algebra, complex analysis, and algorithms, as well as an undergraduate research course. <br>" + make_header());
-
-
-				} else if(args == "emranshafaq.txt"){
-					Typer.write("<br>Hi, I\'m Emran Shafaq.<p>I am currently a student at the University of Texas at Austin studying computer science and mathematics.<\/p><p>My current interests include abstract algebra, artificial intelligence, and formal methods.<\/p>\r\nIf you would like to get in touch with me, feel free to send me an email. My email address is: <a href=\"mailto:emran.shafaq@gmail.com\" target=\"_blank\">emran.shafaq@gmail.com<\/a> and my Github is: <a href=\"http:\/\/github.com\/emzatos\" target=\"_blank\">emzatos<\/a>.\r\n<p>If you would like to see my artistic side, feel free to check out my <a href=\"http:\/\/www.flickr.com\/eshafaq\" target=\"_blank\">Flickr<\/a>.<\/p><p>My latest project is a Mandelbrot set viewer written in JS, which can be viewed <a href=\"http:\/\/www.cs.utexas.edu\/~eshafaq\/mandel.html\" target=\"_blank\">here<\/a>. <\/p><p>My resume can be found <a href=\"http:\/\/cs.utexas.edu\/~eshafaq\/Resume-electronic.pdf\" target=\"_blank\">here<\/a>.<\/p>" + make_header());
-				}
-
-				else if(args == "contact.txt") {
-					Typer.write("<br>Phone Number: 817-734-8659\
-						<br>Email: emran.shafaq@gmail.com\
-						<br>Github ID: emzatos\
-						<br>" + make_header());
-				}
-
-				else {
-					echo("-bosch: " + command + ": " + args + ": No such file or directory");
-				}
-
-			}
-
-
-			else {
-				echo("-bosch: " + command + ": " + args + ": No such file or directory");
-			}
+			cat(args, command);
 		}
 
 		else if(command == "echo") {
@@ -357,6 +261,121 @@ function auto_complete(value, args) {
 
 function echo (str) {
 	Typer.write("<br>" + str + "<br>" + make_header());
+}
+
+function ls () {
+	if(Typer.path == "")
+		Typer.write(builder(["Projects/", "Experience/", "Skills/", "Extracurricular/", "education.txt", "emranshafaq.txt", "contact.txt"]));
+
+	else if(Typer.path == "/Projects")
+		Typer.write(builder(["november_sky.txt", "boSWEmian_rhapsody.txt", "mandeljs.txt", "twilysis.txt", "conductor_hero.txt",
+			"other_projects.txt"]));
+
+	else if(Typer.path == "/Extracurricular")
+		Typer.write(builder(["hum.txt", "kvrx.txt"]));
+
+	else if(Typer.path == "/Experience")
+		Typer.write(builder(["ccs_ices.txt", "breker_systems.txt", "research.txt"]));
+
+	else if(Typer.path == "/Skills")
+		Typer.write(builder(["languages.txt", "frameworks.txt"]));
+
+	else{
+		Typer.write(builder([]));
+	}
+}
+
+function cd(args) {
+	if(args == "..") {
+		if(Typer.path == ""){
+			Typer.write(builder([]));
+
+
+		}
+		else {
+			Typer.path = Typer.path.substring(0,Typer.path.lastIndexOf("/"));
+			Typer.write(builder([]));
+		}
+	}
+	else if(args == ".") {
+		Typer.write(builder([]));
+	}
+	else if(Typer.path == "") {
+		let subdirs = ["/Projects", "/Experience", "/Skills", "/Extracurricular"];
+		let found = false;
+		for(let a of subdirs){
+			if(("/" + args) == a || "/"+args.substring(0,args.length-1) == a && args.endsWith("/")){
+				found = true;
+				Typer.path+=a;
+			}
+		}
+		if(!found){
+			Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+		} else {
+			Typer.write(builder([]));
+		}
+	}else {
+
+		Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+
+	}
+}
+
+function clear() {
+	document.getElementById("console").innerHTML = make_header();
+}
+
+function help() {
+	Typer.write("<br>cat [filename] - display contents of file<br>cd [directory_name] - change directory<br>clear - reset console<br>echo [arg] - prints text to console<br>ls - list directory contents<br>" + make_header());
+}
+
+function cat (args, command) {
+	if(args == "meme" || args == "memes") {
+		var meme = document.createElement("img");
+		meme.setAttribute("src", "https://media.giphy.com/media/Hcw7rjsIsHcmk/giphy.gif");
+		meme.style.width = 400;
+		meme.style.height = 400;
+		document.getElementById("console").appendChild(meme);
+		Typer.write(builder([]));
+	}
+
+	else if(Typer.path == "/Extracurricular"){
+		if(args == "hum.txt") {
+			Typer.write("<br><span id=\"hum\">Hum A Cappella </span>is a collegiate South Asian fusion a cappella group. <p> Essentially, we take popular American songs and mash them up with popular Indian songs. We travel nationally to attend various competitions and events. </p> <p>I joined the team in the Fall of 2016 as a bass singer. The group has offered me a great way to express myself artistically while having a blast.</p> <p>I encourage you to visit the team's website: -link here eventually- </p>" + make_header());
+		} else if(args == "kvrx.txt") {
+			Typer.write("");
+		} else {
+			Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+		}
+	} 
+
+	else if(Typer.path == "") {
+		if(args == "education.txt") {
+
+			Typer.write("<br>I am a junior at the University of Texas at Austin, studying computer science and pure mathematics. <br>I've always had a passion for mathematics, but it wasn't until my junior year of high school where I discovered my love for computer science. It sort of consolidated my understanding of math into a physical device.<br>This coming semester, I am planning on taking courses in abstract algebra, complex analysis, and algorithms, as well as an undergraduate research course. <br>" + make_header());
+
+
+		} else if(args == "emranshafaq.txt"){
+			Typer.write("<br>Hi, I\'m Emran Shafaq.<p>I am currently a student at the University of Texas at Austin studying computer science and mathematics.<\/p><p>My current interests include abstract algebra, artificial intelligence, and formal methods.<\/p>\r\nIf you would like to get in touch with me, feel free to send me an email. My email address is: <a href=\"mailto:emran.shafaq@gmail.com\" target=\"_blank\">emran.shafaq@gmail.com<\/a> and my Github is: <a href=\"http:\/\/github.com\/emzatos\" target=\"_blank\">emzatos<\/a>.\r\n<p>If you would like to see my artistic side, feel free to check out my <a href=\"http:\/\/www.flickr.com\/eshafaq\" target=\"_blank\">Flickr<\/a>.<\/p><p>My latest project is a Mandelbrot set viewer written in JS, which can be viewed <a href=\"http:\/\/www.cs.utexas.edu\/~eshafaq\/mandel.html\" target=\"_blank\">here<\/a>. <\/p><p>My resume can be found <a href=\"http:\/\/cs.utexas.edu\/~eshafaq\/Resume-electronic.pdf\" target=\"_blank\">here<\/a>.<\/p>" + make_header());
+		}
+
+		else if(args == "contact.txt") {
+			Typer.write("<br>Phone Number: 817-734-8659\
+				<br>Email: emran.shafaq@gmail.com\
+				<br>Github ID: emzatos\
+				<br>" + make_header());
+		}
+
+		else {
+			echo("-bosch: " + command + ": " + args + ": No such file or directory");
+		}
+
+	}
+
+
+	else {
+		echo("-bosch: " + command + ": " + args + ": No such file or directory");
+	}
 }
 
 
