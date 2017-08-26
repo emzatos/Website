@@ -154,7 +154,7 @@ element.onkeypress = function(e) {
 				Typer.write(builder(["hum.txt", "kvrx.txt"]));
 
 			else if(Typer.path == "/Experience")
-				Typer.write(builder(["ccs_ices.txt", "breker_systems.txt"]));
+				Typer.write(builder(["ccs_ices.txt", "breker_systems.txt", "research.txt"]));
 
 			else if(Typer.path == "/Skills")
 				Typer.write(builder(["languages.txt", "frameworks.txt"]));
@@ -241,27 +241,26 @@ element.onkeypress = function(e) {
 				}
 
 				else if(args == "contact.txt") {
-					Typer.write("<br>Mailing Address: 1023 W. 24th St., Austin, TX 78705 Apt. 906\
-						<br>Phone Number: 817-734-8659\
+					Typer.write("<br>Phone Number: 817-734-8659\
 						<br>Email: emran.shafaq@gmail.com\
 						<br>Github ID: emzatos\
 						<br>" + make_header());
 				}
 
 				else {
-					Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+					echo("-bosch: " + command + ": " + args + ": No such file or directory");
 				}
 
 			}
 
 
 			else {
-				Typer.write("<br>-bosch: " + command + ": " + args + ": No such file or directory</br>" + make_header());
+				echo("-bosch: " + command + ": " + args + ": No such file or directory");
 			}
 		}
 
 		else if(command == "echo") {
-			Typer.write("<br>" + (args == undefined ? "" : args) + "<br>" + make_header());
+			echo(args == undefined ? "" : args);
 		}
 
 		else {
@@ -327,22 +326,37 @@ function auto_complete(value, args) {
 	let current = "";
 
 	if(value.indexOf(" ") != -1){
-		command = value.split(" ")[0]
-		current = value.split(" ")[1]
+		command = value.split(" ")[0];
+		current = value.split(" ")[1];
 	} else {
 		current = value;
 	}
 
 	let options = args;
 	let result = "";
+
+	// let filtered_options = options.filter(function(a) {
+	// 	return a.substring(0,current.length) == current;
+	// });
+
+
+
+
+
 	for(let a of options) {
 		if(a.substring(0,current.length) == current){
 			current = a;
 		}
 	}
 
+	// if(filtered_options.length > 0){
 
+	// }
 	return command == "" ? current : command + " " + current;
+}
+
+function echo (str) {
+	Typer.write("<br>" + str + "<br>" + make_header());
 }
 
 
