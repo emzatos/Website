@@ -1,3 +1,6 @@
+let command_history = []
+let history_index = 0;
+
 var Terminal = {
 
 	echo:function (str) {
@@ -80,6 +83,29 @@ var Terminal = {
 			document.getElementById("console").appendChild(meme);
 			Typer.write(builder([]));
 		}
+
+		else if(args == "bf" || args == "gf" || args == "frog") {
+			var meme = document.createElement("img");
+			meme.setAttribute("src", "http://oi66.tinypic.com/sfuzup.jpg");
+			meme.style.width = 0.5*639;
+			meme.style.height = 0.5*443;
+			document.getElementById("console").appendChild(meme);
+			Typer.write(builder([]));
+		}
+
+		else if(args == "dog") {
+			var meme = document.createElement("img");
+			meme.setAttribute("src", "https://orig11.deviantart.net/d807/f/2016/327/1/9/catdog_by_mollyketty-d5tiv3e.png");
+
+			let w = 785;
+			let h = 392;
+			meme.style.height = h * 0.5;
+			meme.style.width = w * 0.5;
+			console.log(meme.style.height);
+			document.getElementById("console").appendChild(meme);
+			Typer.write(builder([]));
+		}
+
 
 		else if(Typer.path == "/Extracurricular"){
 			if(args == "hum.txt") {
@@ -215,6 +241,7 @@ Typer.file="emranshafaq.txt";
 Typer.init();
 
 var timer = setInterval("t();", 30);
+
 function t() {
 	window.onkeypress = function(e){
 		Typer.speed = 1000;
@@ -255,6 +282,23 @@ element.onkeydown = function(e) {
 			e.target.value = auto_complete(e.target.value, ["hum.txt", "kvrx.txt"]);
 		}
 	}
+
+	else if(e.keyCode == 38) {
+		console.log("On up : " + command_history + " " + history_index);
+		if(history_index < 0)
+			history_index = 0;
+
+		e.target.value = command_history.length > 0 ? command_history[history_index] : e.target.value;
+		--history_index;
+
+	} else if(e.keyCode == 40) {
+		console.log("On down : " + command_history + " " + history_index);
+		if(history_index >= command_history.length)
+			history_index = command_history.length-1;
+
+		e.target.value = command_history.length > 0 ? command_history[history_index] : e.target.value;
+		++history_index;
+	}
 }
 
 element.onkeypress = function(e) {
@@ -274,11 +318,14 @@ element.onkeypress = function(e) {
 			Terminal.echo("-bosch: " + command + ": command not found");
 		}
 
+		command_history.push(e.target.value);
+		history_index = command_history.length-1; 
+		console.log("On enter : " + command_history + " " + history_index);
 
 		e.target.disabled = true;
 		add();
 
-	}
+	} 
 
 }
 
@@ -342,24 +389,22 @@ function auto_complete(value, args) {
 	let options = args;
 	let result = "";
 
-	// let filtered_options = options.filter(function(a) {
-	// 	return a.substring(0,current.length) == current;
-	// });
-
-
-
-
-
-	for(let a of options) {
-		if(a.substring(0,current.length) == current){
-			current = a;
-		}
-	}
+	let filtered_options = options.filter(function(a) {
+		return a.substring(0,current.length) == current;
+	});
 
 	// if(filtered_options.length > 0){
-
+	// 	Terminal.echo(filtered_options.join(" "));
+	// 	return;
 	// }
+
+
+	current = filtered_options[0];
+	if(current == undefined)
+		current = value;
 	return command == "" ? current : command + " " + current;
+	
+
 }
 
 
